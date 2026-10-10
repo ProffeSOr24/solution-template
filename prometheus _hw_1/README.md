@@ -132,10 +132,6 @@ systemctl restart prometheus
 systemctl status prometheus --no-pager
 ```
 
-Status → Configuration:
-
-![Status Configuration](img/task3-config.png)
-
 Status → Target health (2 / 2 up):
 
 ![Status Targets](img/task3-targets.png)
