@@ -174,3 +174,7 @@ systemctl status grafana-server --no-pager
 ![Data source test](img/task5-datasource-ok.png)
 
 ![Node Exporter Full dashboard](img/task5-dashboard.png)
+
+Дополнительно импортирован дашборд **Node Exporter Dashboard EN** (ID 11074):
+
+![Node Exporter Dashboard EN](img/task5-dashboard-node-en.png)
