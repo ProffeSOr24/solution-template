@@ -164,3 +164,21 @@ systemctl restart prometheus
 Status → Target health:
 
 ![Targets](img/task3-targets.png)
+
+---
+
+### Задание 4*
+
+Собственный дашборд Grafana `education ex2` с метриками Docker и сервера. Источник данных — Prometheus (`http://localhost:9090`), все запросы написаны вручную на PromQL.
+
+| Панель | Запрос | Источник метрик |
+|---|---|---|
+| Запущенные контейнеры | `engine_daemon_container_states_containers{state="running"}` | Docker |
+| Использование RAM, % | `100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)` | Node Exporter |
+| Загрузка CPU, % | `100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)` | Node Exporter |
+| Время работы, с | `time() - node_boot_time_seconds` | Node Exporter |
+
+- `node_cpu_seconds_total` — счётчик (counter), поэтому используется `rate(...[5m])`: скорость роста счётчика простоя даёт долю простоя, её вычитаем из 100 %.
+- `node_memory_*` — gauge, значения выводятся без `rate`.
+
+![Dashboard](img/task4-dashboard.png)
