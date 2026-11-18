@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HORIZON — маркетплейс игр</title>
+  <meta name="description" content="Маркетплейс видеоигр за горизонтом событий.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Cormorant+Garamond:ital,wght@1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="space" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a href="#top" class="logo">H O R I Z O N</a>
+    <nav class="nav-links">
+      <a href="#catalog">Каталог</a>
+      <a href="#dilation">Время</a>
+      <a href="#signal">Сигнал</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" id="soundBtn" aria-pressed="false" title="Звук космоса">
+        <span class="eq"><i></i><i></i><i></i></span>
+      </button>
+      <button class="icon-btn cart-btn" id="cartBtn" title="Корзина">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 5h2l2.2 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO: падение за горизонт -->
+  <section class="hero" id="top">
+    <div class="hero-sticky">
+      <div class="hero-text" id="heroText">
+        <p class="eyebrow">маркетплейс видеоигр</p>
+        <h1>Миры, из которых<br><em>не хочется возвращаться</em></h1>
+        <p class="sub">Тысячи вселенных за горизонтом событий. Время здесь течёт иначе.</p>
+        <a href="#catalog" class="btn-ghost">Войти в гравитацию</a>
+      </div>
+      <div class="scroll-hint" id="scrollHint"><span></span>листайте вниз</div>
+    </div>
+  </section>
+
+  <!-- Замедление времени -->
+  <section class="dilation reveal" id="dilation">
+    <p class="eyebrow">замедление времени</p>
+    <div class="dilation-grid">
+      <div>
+        <span class="label">Вы на HORIZON</span>
+        <span class="big" id="localTime">00:00</span>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <span class="label">На Земле прошло</span>
+        <span class="big" id="earthTime">0 дней</span>
+      </div>
+    </div>
+    <p class="quote">«Один час здесь — семь лет там. Не торопитесь.»</p>
+  </section>
+
+  <!-- Каталог -->
+  <section class="catalog" id="catalog">
+    <div class="catalog-head reveal">
+      <div>
+        <p class="eyebrow">каталог</p>
+        <h2>Открытые миры</h2>
+      </div>
+      <div class="controls">
+        <label class="search">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="search" type="search" placeholder="Поиск по вселенной" autocomplete="off">
+        </label>
+        <select id="sort" aria-label="Сортировка">
+          <option value="pop">Притяжение</option>
+          <option value="price-asc">Дешевле</option>
+          <option value="price-desc">Дороже</option>
+          <option value="rating">Рейтинг</option>
+        </select>
+      </div>
+    </div>
+    <div class="filters reveal" id="filters"></div>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>В этом секторе пусто. Попробуйте другой запрос.</p>
+  </section>
+
+  <!-- Сигнал -->
+  <section class="signal reveal" id="signal">
+    <p class="eyebrow">сигнал</p>
+    <h2>Получайте передачи<br><em>сквозь пространство</em></h2>
+    <p class="sub">Скидки, ранний доступ и новые миры — раз в неделю, без шума.</p>
+    <form id="signalForm" class="signal-form">
+      <input type="email" required placeholder="ваш@адрес.земля" aria-label="Email">
+      <button type="submit" class="btn-solid">Отправить</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <span>H O R I Z O N · 2026</span>
+    <span class="muted">Не уходите смиренно в эту ночь.</span>
+  </footer>
+
+  <!-- Модалка товара -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <button class="close" data-close aria-label="Закрыть">×</button>
+      <div class="modal-cover" id="mCover"></div>
+      <div class="modal-body">
+        <p class="eyebrow" id="mGenre"></p>
+        <h3 id="mTitle"></h3>
+        <p class="m-desc" id="mDesc"></p>
+        <ul class="m-tags" id="mTags"></ul>
+        <div class="m-foot">
+          <div class="price" id="mPrice"></div>
+          <button class="btn-solid" id="mAdd">В корзину</button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Корзина -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-backdrop" data-close-cart></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h3>Грузовой отсек</h3>
+        <button class="close" data-close-cart aria-label="Закрыть">×</button>
+      </div>
+      <ul class="cart-list" id="cartList"></ul>
+      <div class="drawer-foot">
+        <div class="total"><span>Итого</span><span id="cartTotal">0 ₽</span></div>
+        <button class="btn-solid wide" id="checkout">Оформить</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
